@@ -1,5 +1,6 @@
 <?php
 include('inc_header.php');
+include('inc_setup.php');
 
 $idpengguna = $nama = $error ='';
 if(isset($_POST['idpengguna']) && isset($_POST['katalaluan'])){
@@ -22,7 +23,7 @@ if(isset($_POST['idpengguna']) && isset($_POST['katalaluan'])){
     }
     $panjang_katalaluan=strlen($katalaluan);
     if($panjang_katalaluan<6){
-        $error.="Katalaluan terlalu pendek. Minima 6 aksara."
+        $error.="Katalaluan terlalu pendek. Minima 6 aksara.";
     }
     $sql="SELECT * FROM pengguna WHERE idpengguna='$idpengguna' LIMIT 1";
     $result=query($db,$sql);

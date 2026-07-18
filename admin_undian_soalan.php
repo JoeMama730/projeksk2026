@@ -1,15 +1,16 @@
 <?php
 include('inc_header.php');
+include('inc_setup.php');
 semak_tahap('admin');
 
-if(isset($_GET['id'])){
+if (isset($_GET['id'])) {
     $idundian = $_GET['id'];
-}else{
+} else {
     exit("<script>alert('ID diperlukan.');
     window.location.replace('admin_undian_senarai.php'); </script>");
 }
 
-if(isset($_GET['delete'])){
+if (isset($_GET['delete'])) {
     $idsoalan = $_GET['delete'];
     $sql = "DELETE FROM soalan WHERE idsoalan ='$idsoalan'";
     $result = query($db, $sql);
@@ -18,28 +19,28 @@ if(isset($_GET['delete'])){
     window.location.replace('admin_undian_soalan.php?id=$idundian'); </script>");
 }
 
-$sql ="SELECT * FROM undian WHERE idundian ='$idundian' LIMIT 1";
+$sql = "SELECT * FROM undian WHERE idundian ='$idundian' LIMIT 1";
 $result = query($db, $sql);
 
-if(mysqli_num_rows($result) > 0){
+if (mysqli_num_rows($result) > 0) {
     $data = mysqli_fetch_array($result);
     $label_undian = $data['label_undian'];
-}else{
+} else {
     echo "<script>alert('ID ($idundian) tidak wujud.');
     window.location.replace('admin_undian_soalan.php'); </script>";
 }
 
-if(isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['idjawapan']) && isset($_POST['label_jawapan'])){
+if (isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['idjawapan']) && isset($_POST['label_jawapan'])) {
     $idsoalan = $_POST['idsoalan'];
     $label_soalan = $_POST['label_soalan'];
     $idjawapan = $_POST['idjawapan'];
     $label_jawapan = $_POST['label_jawapan'];
 
-    $sql ="INSERT INTO soalan (idsoalan, label_soalan, idundian) VALUES ('$idsoalan', '$label_soalan', '$idundian')";
+    $sql = "INSERT INTO soalan (idsoalan, label_soalan, idundian) VALUES ('$idsoalan', '$label_soalan', '$idundian')";
     $result = query($db, $sql);
-    foreach ($idjawapan as $key => $idjawapan){
-        if(!empty($idjawapan) && !empty($label_jawapan[$key])){
-            $sql ="INSERT INTO jawapan (idjawapan, label_jawapan, idsoalan)
+    foreach ($idjawapan as $key => $idjawapan) {
+        if (!empty($idjawapan) && !empty($label_jawapan[$key])) {
+            $sql = "INSERT INTO jawapan (idjawapan, label_jawapan, idsoalan)
             VALUES ('$idjawapan', '$label_jawapan[$key]', '$idsoalan')";
             $result = query($db, $sql);
         }
@@ -49,32 +50,32 @@ if(isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['i
 }
 ?>
 
-<h2>Soalan Undian <?=$idundian?> : <?=$label_undian?></h2>
+<h2>Soalan Undian <?= $idundian ?> : <?= $label_undian ?></h2>
 
 <form method="POST" action="">
-<p>
-    <label>ID Soalan</label><br>
-    <input style="width: 100px" type='text' name='idsoalan' value='' placeholder='ID Soalan' required>
-    <input type='text' name='label_soalan' placeholder='Label soalan'>
-</p>
+    <p>
+        <label>ID Soalan</label><br>
+        <input style="width: 100px" type='text' name='idsoalan' value='' placeholder='ID Soalan' required>
+        <input type='text' name='label_soalan' placeholder='Label soalan'>
+    </p>
 
-<label>Pilihan Jawapan:</label><br>
-<p>
-    <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
-    <input type='text' name'label_jawapan[]' placeholder='Label Jawapan' required>
-</p>
+    <label>Pilihan Jawapan:</label><br>
+    <p>
+        <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
+        <input type='text' name'label_jawapan[]' placeholder='Label Jawapan' required>
+    </p>
 
-<p id="input-jawapan">
-    <input style="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
-    <input type='text' name='label_jawapan[]' placeholder='Label Jawapan' required>
-</p>
+    <p id="input-jawapan">
+        <input style="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
+        <input type='text' name='label_jawapan[]' placeholder='Label Jawapan' required>
+    </p>
 
-<p>
-<a href='javascript:void(0);' onclick="tambah_jawapan()">+ Pilihan</a>
-</p>
+    <p>
+        <a href='javascript:void(0);' onclick="tambah_jawapan()">+ Pilihan</a>
+    </p>
 
-<button class="btn btn-sm btn-success" type="submit" value="Simpan">
-Simpan Soalan</button>
+    <button class="btn btn-sm btn-success" type="submit" value="Simpan">
+        Simpan Soalan</button>
 </form>
 <hr>
 
@@ -85,7 +86,7 @@ ORDER by idsoalan ASC";
 $result = query($db, $sql);
 $total = mysqli_num_rows($result);
 
-if($total > 0){
+if ($total > 0) {
     echo "Jumlah: $total<br>";
     echo "<table class='table table-bordered table-striped' border='1' cellpadding='4' cellspacing='0'>
     <tr>
@@ -94,18 +95,18 @@ if($total > 0){
     <th>Tindakan</th>
     </tr>";
 
-    while($row = mysqli_fetch_array($result)){
+    while ($row = mysqli_fetch_array($result)) {
         $idsoalan = $row['idsoalan'];
         $label_soalan = $row['label_soalan'];
 
-            $label_jawapan="";
-            $sql="SELECT * FROM jawapan WHERE idsoalan ='$idsoalan' ORDER BY idjawapan ASC";
-            $result2 = query($db, $sql);
+        $label_jawapan = "";
+        $sql = "SELECT * FROM jawapan WHERE idsoalan ='$idsoalan' ORDER BY idjawapan ASC";
+        $result2 = query($db, $sql);
 
-            while($jaw = mysqli_fetch_array($result2)){
-                $label_jawapan.=$jaw['idjawapan'].":".$jaw['label_jawapan']."<br>";
-            }
-        echo"<tr>
+        while ($jaw = mysqli_fetch_array($result2)) {
+            $label_jawapan .= $jaw['idjawapan'] . ":" . $jaw['label_jawapan'] . "<br>";
+        }
+        echo "<tr>
         <td>$idsoalan : $label_soalan</td>
         <td>$label_jawapan</td>
         <td><a class='btn btn-sm btn-danger'href='javascript:void(0);'
@@ -113,7 +114,7 @@ if($total > 0){
         </tr>";
     }
     echo "</table>";
-}else{
+} else {
     echo "Belum ada soalan.";
 }
 

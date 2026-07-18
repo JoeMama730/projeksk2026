@@ -1,41 +1,42 @@
-<?php include('inc_header.php');
-$idpengguna = isset($_SESSION['idpengguna'])? $_SESSION['idpengguna']:false;
+<?php include('inc_setup.php');
+include('inc_header.php');
+$idpengguna = isset($_SESSION['idpengguna']) ? $_SESSION['idpengguna'] : false;
 ?>
 <h2>Senarai Undian</h2>
 <?php
-$sql="SELECT * FROM undian";
-$result = quer($db, $sql);
+$sql = "SELECT * FROM undian";
+$result = query($db, $sql);
 $total = mysqli_num_rows($result);
 
-if($total > 0){
+if ($total > 0) {
     echo "<table class='table table-bordered table-striped'border='1'cellpadding='4'cellspacing='0'>
     <tr> <th width='200'>Imej</td><th>Undian</td>
     <th class='text-end'>Tindakan</td></tr>";
 
-    while($row = mysqli_fetch_array($result)){
-        $idundian =$row['idundian'];
+    while ($row = mysqli_fetch_array($result)) {
+        $idundian = $row['idundian'];
         $label_undian = $row['label_undian'];
-        $masa_tamat = date("j M Y, g:i A",strtotime($row['masa_tamat']));
+        $masa_tamat = date("j M Y, g:i A", strtotime($row['masa_tamat']));
 
-        if( semak_tamat($row['masa_tamat'])){
+        if (semak_tamat($row['masa_tamat'])) {
             $label_masa = "Undian telah tamat: <span style='color: red'>$masa_tamat</span>";
-        }else{
+        } else {
             $label_masa = "Tarikh tamat undian: <span style='color: green'>$masa_tamat</span>";
         }
-        $imej =- $row['imej'];
-        if(!empty($imej)){
+        $imej = -$row['imej'];
+        if (!empty($imej)) {
             $img = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
-        }else{
+        } else {
             $img = "";
         }
-        $respon_undi ="";
-        if($idpengguna){
-            $undi_db = semak_undi($idundian,$idpengguna);
+        $respon_undi = "";
+        if ($idpengguna) {
+            $undi_db = semak_undi($idundian, $idpengguna);
 
-            if($undi_db){
+            if ($undi_db) {
                 $respon_undi = "<br><b>Undian anda:</b><br>";
-                foreach($undi_db as $key => $value){
-                    $respon_undi.=$value['label_soalan'].":".$value['label_jawapan']."<br>";
+                foreach ($undi_db as $key => $value) {
+                    $respon_undi .= $value['label_soalan'] . ":" . $value['label_jawapan'] . "<br>";
                 }
             }
         }
@@ -51,7 +52,7 @@ if($total > 0){
         ";
     }
     echo "</table>";
-}else{
+} else {
     echo "Belum ada undian.";
 }
 include('inc_footer.php'); ?>
