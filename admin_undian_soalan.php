@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-include('inc_setup.php');
+include_once('inc_setup.php');
 semak_tahap('admin');
 
 if (isset($_GET['id'])) {
@@ -62,7 +62,7 @@ if (isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['
     <label>Pilihan Jawapan:</label><br>
     <p>
         <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
-        <input type='text' name'label_jawapan[]' placeholder='Label Jawapan' required>
+        <input type='text' name='label_jawapan[]' placeholder='Label Jawapan' required>
     </p>
 
     <p id="input-jawapan">

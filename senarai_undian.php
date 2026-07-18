@@ -1,4 +1,4 @@
-<?php include('inc_setup.php');
+<?php include_once('inc_setup.php');
 include('inc_header.php');
 $idpengguna = isset($_SESSION['idpengguna']) ? $_SESSION['idpengguna'] : false;
 ?>
@@ -23,11 +23,11 @@ if ($total > 0) {
         } else {
             $label_masa = "Tarikh tamat undian: <span style='color: green'>$masa_tamat</span>";
         }
-        $imej = -$row['imej'];
+        $imej = $row['imej'];
         if (!empty($imej)) {
-            $img = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
+            $imej = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
         } else {
-            $img = "";
+            $imej = "";
         }
         $respon_undi = "";
         if ($idpengguna) {
@@ -40,7 +40,7 @@ if ($total > 0) {
                 }
             }
         }
-        echo "<tr> <td>$img</td>
+        echo "<tr> <td>$imej</td>
         <td><b>$label_undian</b><br>
         $label_masa <br>$respon_undi
         </td>

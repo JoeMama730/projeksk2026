@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-include('inc_setup.php');
+include_once('inc_setup.php');
 semak_tahap('admin');
 
 $idundian = $label_undian = $detail = $imej = "";

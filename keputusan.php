@@ -1,4 +1,4 @@
-<?php include('inc_setup.php');
+<?php include_once('inc_setup.php');
 include('inc_header.php');
 semak_tahap('pengguna-admin');
 
@@ -15,7 +15,7 @@ if (!semak_undi($idundian, $idpengguna) && $tahap != 'admin') {
     exit("<script> alert('Anda perlu mengundi sebelum melihat keputusan.');
     window.location.replace('senarai_undian.php');</script>");
 }
-$sql = "SELECT undian.* , COUNT(respon.idjawapan) AS jumlah-respon FROM undian
+$sql = "SELECT undian.* , COUNT(respon.idjawapan) AS jumlah_respon FROM undian
     LEFT JOIN soalan ON soalan.idundian = undian.idundian
     LEFT JOIN jawapan ON jawapan.idsoalan = soalan.idsoalan
     LEFT JOIN respon ON respon.idjawapan = jawapan.idjawapan
@@ -32,6 +32,7 @@ if (mysqli_num_rows($result) > 0) {
     exit("<script>alert('Undian $idundian tidak wujud.');
     window.location.replace('index.php'); </script>");
 }
+
 ?>
 <div id='kandungan' class='d-flex justify-content-center w-100 mb-2'>
     <div class='card'>
@@ -54,7 +55,7 @@ if (mysqli_num_rows($result) > 0) {
             } else {
                 while ($soalan = mysqli_fetch_array($result2)) {
                     $idsoalan = $soalan['idsoalan'];
-                    $label_soalan = $soalan['label_undian'];
+                    $label_soalan = $soalan['label_soalan'];
 
                     echo "<h5 class='mt-4'>$label_soalan</h5>";
 

@@ -46,8 +46,7 @@ function semak_undi($idundian, $idpengguna)
     return $result;
   } else {
     // jika rekod TIDAK wujud, kembalikan false
-    echo "Log masuk gagal\nSila daftar dahulu";
-    return;
+    return false;
   }
 }
 

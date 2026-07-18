@@ -1,4 +1,4 @@
-<?php include('inc_setup.php'); ?>
+<?php include_once('inc_setup.php'); ?>
 <!DOCTYPE html>
 <html>
 

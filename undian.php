@@ -1,6 +1,6 @@
 <?php
+include_once('inc_setup.php');
 include('inc_header.php');
-include('inc_setup.php');
 semak_tahap('pengguna-admin');
 
 if (isset($_GET['id'])) {
@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 } else {
     exit("<script>alert('ID undian diperlukan.'); window.location.replace('senarai_undian.php'); </script>");
 }
-$idpengguna = $_SESSION['idpengguan'];
+$idpengguna = $_SESSION['idpengguna'];
 $tahap = $_SESSION['tahap'];
 
 $sql = "SELECT * FROM undian WHERE idundian ='$idundian' LIMIT 1";
@@ -35,7 +35,7 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 <div class='d-flex justify-content-center w-100 mb-2'>
     <div class='card'>
-        <div class='card-header py-3 text-center">
+        <div class="card-header py-3 text-center">
         <h2> <?= $label_undian ?> </h2>
             <?php
             if (!empty($imej)) {
@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
             ?>
         </div>
         <div class=' card-body mx-1'>
-            <form method="POST" action="undian_process.php">
+            <form method="POST" action="undian_proses.php">
                 <input type="hidden" name="undian" value="<?= $idundian ?>">
                 <?php
                 $sql = "SELECT * FROM soalan WHERE idundian ='$idundian' ORDER BY idsoalan ASC";
@@ -59,9 +59,9 @@ if (mysqli_num_rows($result) > 0) {
                         $sql = "SELECT * FROM jawapan WHERE idsoalan ='$idsoalan' ORDER BY idjawapan ASC";
                         $result2 = query($db, $sql);
                         while ($jawapan = mysqli_fetch_array($result2)) {
-                            $idjawapan = $idjawapan['idjawapan'];
+                            $idjawapan = $jawapan['idjawapan'];
                             $label_jawapan = $jawapan['label_jawapan'];
-                            echo "div class='form-check'>
+                            echo "<div class='form-check'>
                 <input type='radio' name='respon[$idsoalan]' value='$idjawapan' id='$idsoalan-$idjawapan' required>
                 <label for='$idsoalan-$idjawapan'>$label_jawapan</label>
                 </div>";

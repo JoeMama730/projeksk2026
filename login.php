@@ -1,5 +1,5 @@
 <?php
-include('inc_setup.php');
+include_once('inc_setup.php');
 include('inc_header.php');
 
 $idpengguna = "";
@@ -30,6 +30,10 @@ if (isset($_POST['idpengguna']) && isset($_POST['katalaluan'])) {
     <div class="mb-3"><label class="form-label">ID Pengguna</label>
         <input type="text" class="form-control" name="idpengguna"
             placeholder="Masukkan ID Pengguna" value="<?= $idpengguna ?>" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Katalaluan</label>
+        <input type="password" class="form-control" name="katalaluan" placeholder="Masukkan Katalaluan" required>
     </div>
 
     <div class="d-grid gap-2">

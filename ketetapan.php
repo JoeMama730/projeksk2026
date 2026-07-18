@@ -1,5 +1,5 @@
 <?php
-include('inc_setup.php');
+include_once('inc_setup.php');
 include('inc_header.php');
 if (isset($_GET['font'])) {
 
