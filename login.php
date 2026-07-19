@@ -26,7 +26,7 @@ if (isset($_POST['idpengguna']) && isset($_POST['katalaluan'])) {
 }
 ?>
 <h2>Log Masuk</h2>
-<form method="POST" action="login.php" class="w-50m-auto">
+<form method="POST" action="login.php" class="w-50 m-auto">
     <div class="mb-3"><label class="form-label">ID Pengguna</label>
         <input type="text" class="form-control" name="idpengguna"
             placeholder="Masukkan ID Pengguna" value="<?= $idpengguna ?>" required>
