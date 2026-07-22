@@ -1,6 +1,6 @@
 <?php
 # Nama sistem dipaparkan di header dan title bar browser
-$nama_sistem = "eUndi SMK Puisi";
+$nama_sistem = "eUndi Fender Institution";
 
 # Maklumat pangkalan data
 $db_name = "projeksk2026";

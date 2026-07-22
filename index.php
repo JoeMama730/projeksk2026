@@ -6,7 +6,7 @@ include("inc_header.php");
 
 <p class="text-center">
     Sistem eUndi (Undi Digital) <br />
-    SMK Puisi
+    Fender Institution
 </p>
 
 <p class="text-center">

@@ -8,12 +8,14 @@
 
 
     <!-- imej icon di Title bar pelayar web -->
-    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="icon" href="images/f.png" type="image/png">
 
 
     <!-- memanggil bootstrap framework dan library untuk icon -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+
     <style>
         * {
             font-family: <?= $jenisfont ?>, Arial, Helvetica;
@@ -35,7 +37,7 @@
 
         body {
             /* Imej latar sistem */
-            background-image: url('images/bg.jpg');
+            background-image: url('images/Kamikochi-autumn-people.jpg');
             /* Warna latar sistem jika tidak gunakan imej */
             background-color: #6aa8ff;
 
@@ -108,7 +110,7 @@
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
 
 
-            <img src="images/logo.png" height="100" class="d-flex mb-2 me-lg-4 me-md-0 align-items-center text-decoration-none">
+            <img src="images/kii.png" height="100" class="d-flex mb-2 me-lg-4 me-md-0 align-items-center text-decoration-none">
 
 
             <div class="d-flex flex-column align-items-center">
@@ -120,22 +122,22 @@
 
 
                 <ul class="nav nav-pills ms-2 me-2 m-auto">
-                    <li class="nav-item"><a href="index.php" class="btn btn-outline-primary me-2">Utama</a></li>
-                    <li class="nav-item"><a href="senarai_undian.php" class="btn btn-outline-primary me-2">Jom Undi</a></li>
+                    <li class="nav-item"><a href="index.php" class="btn btn-header me-2">Utama</a></li>
+                    <li class="nav-item"><a href="senarai_undian.php" class="btn btn-header me-2">Jom Undi</a></li>
                     <?php
                     if ($tahap == 'admin') {
                         echo "
-          <li class='nav-item'><a class='btn btn-outline-primary me-2' href='admin_undian_senarai.php'>Urus Undian</a></li>
-          <li class='nav-item'><a class='btn btn-outline-primary me-2' href='admin_pengguna_senarai.php'>Urus Pengguna</a></li>
+          <li class='nav-item'><a class='btn btn-header me-2' href='admin_undian_senarai.php'>Urus Undian</a></li>
+          <li class='nav-item'><a class='btn btn-header me-2' href='admin_pengguna_senarai.php'>Urus Pengguna</a></li>
           ";
                     }
                     if ($tahap == 'pelawat') {
                         echo "
-          <li class='nav-item'><a class='btn btn-outline-primary me-2' href='login.php'>Log Masuk</a></li>
-          <li class='nav-item'><a class='btn btn-outline-primary me-2' href='signup.php'>Daftar</a></li>";
+          <li class='nav-item'><a class='btn btn-header me-2' href='login.php'>Log Masuk</a></li>
+          <li class='nav-item'><a class='btn btn-header me-2' href='signup.php'>Daftar</a></li>";
                     } else {
                         echo "
-          <li class='nav-item'><a class='btn btn-outline-primary me-2' href='logout.php'>Log Keluar</a></li>";
+          <li class='nav-item'><a class='btn btn-header me-2' href='logout.php'>Log Keluar</a></li>";
                     }
                     ?>
                 </ul>
