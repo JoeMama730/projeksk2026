@@ -1,4 +1,5 @@
 <?php
+define("ACCESS", true);
 include('inc_header.php');
 include_once('inc_setup.php');
 semak_tahap('admin');
@@ -20,7 +21,7 @@ if (isset($_GET['id'])) {
 
         $masa_tamat = date("Y-m-d H:i:s", strtotime($edit_data['masa_tamat']));
     } else {
-        exit("<script>alert('ID undian tidak ditemui.');
+        exit("<script>alert('Voting ID not found.');
         window.location.replace('admin_undian_senarai.php');</script>");
     }
 }
@@ -38,7 +39,7 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
         $file_name = explode('.', $i['name']);
         $file_ext = strtolower(end($file_name));
 
-        if (in_array($file_ext, ['jepg', 'jpg', 'png', 'bmp', 'gif'])) {
+        if (in_array($file_ext, ['jpeg', 'jpg', 'png', 'bmp', 'gif'])) {
             $location = __DIR__ . '/' . $image_folder . '/';
             $newname = 'undian_' . $idundian . '.' . $file_ext;
             if (move_uploaded_file($i['tmp_name'], $location . $newname)) {
@@ -52,34 +53,34 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
         $sql = "INSERT IGNORE INTO undian (idundian, label_undian, detail, masa_tamat, imej) VALUES('$idundian','$label_undian','$detail','$masa_tamat','$imej')";
     }
     $result = query($db, $sql);
-    echo "<script> alert('Berjaya disimpan.');
+    echo "<script> alert('Successfully saved.');
     window.location.replace('admin_undian_senarai.php.');</script>";
 }
 ?>
 
-<h2>Borang Maklumat Undian</h2>
+<h2>Vote Information Form</h2>
 <form class="form-group row" method="POST" action="" enctype="multipart/form-data">
     <input type="hidden" name="idedit" value="<?= $idundian ?>">
 
     <div class="col">
-        <p> <label>ID Undian</label><br>
+        <p> <label>ID Vote</label><br>
             <input type='text' name='idundian' value='<?= $idundian; ?>'
-                placeholder='ID Unik Undian' required>
+                placeholder='Unique Vote ID' required>
         </p>
-        <p> <label>Label Undian</label><br>
+        <p> <label>Label Vote</label><br>
             <input type='text' name='label_undian' value='<?= $label_undian; ?>'
-                placeholder='Tajuk undian' required>
+                placeholder='Vote title' required>
         </p>
 
-        <div class="mb-2"> <label class="form-label">Maklumat Detail</label><br>
-            <code>Boleh guna HTML atau kod embed.</code>
+        <div class="mb-2"> <label class="form-label">Detailed Information</label><br>
+            <code>Can use HTML or embed code.</code>
             <textarea class="form-control" type='text' name='detail' rows="8" cols="30">
     <?= htmlspecialchars($detail) ?></textarea>
         </div>
     </div>
 
     <div class="col">
-        <p> <label>Tutup Undian Pada</label><br>
+        <p> <label>Vote Closes On</label><br>
             <input type="datetime-local" step="any" name='masa_tamat' value='<?= $masa_tamat; ?>' required>
         </p>
         <p>
@@ -91,11 +92,11 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
             }
             echo "<img src='$img' id='imej_preview' class='border rounded' alt='' width='200'>";
             ?>
-        <p class="mt-2"><label for='gambar'>Muat-naik Gambar</label><br>
+        <p class="mt-2"><label for='gambar'>Upload Image</label><br>
             <input class="form-control" type="file" name='imej' id='imej' accept='image/*'>
         </p>
         </p>
-        <p><button class="btn btn-success" type="submit" value="Simpan">Simpan</button> </p>
+        <p><button class="btn btn-success" type="submit" value="Save">Save</button> </p>
     </div>
 </form>
 

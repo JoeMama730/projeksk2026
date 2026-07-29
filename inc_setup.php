@@ -1,6 +1,6 @@
 <?php
 # Nama sistem dipaparkan di header dan title bar browser
-$nama_sistem = "eUndi Fender Institution";
+$nama_sistem = "Fender Institution eVoting";
 
 # Maklumat pangkalan data
 $db_name = "projeksk2026";
@@ -23,100 +23,100 @@ session_name($db_name);
 session_start();
 // session simpan tahap pengguna
 if (isset($_SESSION['tahap'])) {
-  $tahap = $_SESSION['tahap'];
+    $tahap = $_SESSION['tahap'];
 } else {
-  $tahap = $_SESSION['tahap'] = 'pelawat';
+    $tahap = $_SESSION['tahap'] = 'pelawat';
 }
 
 # FUNCTION 1 semak jika Pengguna telah Mengundi
 function semak_undi($idundian, $idpengguna)
 {
-  global $db;
-  // Semak jika respon pengguna SUDAH wujud
-  $sql = "SELECT respon.*, soalan.label_soalan, jawapan.label_jawapan FROM respon 
+    global $db;
+    // Semak jika respon pengguna SUDAH wujud
+    $sql = "SELECT respon.*, soalan.label_soalan, jawapan.label_jawapan FROM respon 
             JOIN jawapan ON respon.idjawapan = jawapan.idjawapan
             JOIN soalan ON soalan.idsoalan = jawapan.idsoalan
             WHERE respon.idpengguna = '$idpengguna' 
             AND soalan.idundian = '$idundian' ";
-  $result = query($db, $sql);
+    $result = query($db, $sql);
 
-  // jika dah ada rekod, bermakna pengguna sudah mengundi
-  if (mysqli_num_rows($result) > 0) {
-    // jika rekod wujud, kembalikan result query
-    return $result;
-  } else {
-    // jika rekod TIDAK wujud, kembalikan false
-    return false;
-  }
+    // jika dah ada rekod, bermakna pengguna sudah mengundi
+    if (mysqli_num_rows($result) > 0) {
+        // jika rekod wujud, kembalikan result query
+        return $result;
+    } else {
+        // jika rekod TIDAK wujud, kembalikan false
+        return false;
+    }
 }
 
 # FUNCTION 2 semak masa sudah tamat atau tidak
 function semak_tamat($masa_tamat)
 {
-  if (strtotime($masa_tamat) < strtotime('now')) {
-    // jika sudah tamat
-    return true; //ya sudah tamat
-  } else {
-    // jika belum tamat
-    return false; //tidak, belum tamat
-  }
+    if (strtotime($masa_tamat) < strtotime('now')) {
+        // jika sudah tamat
+        return true; //ya sudah tamat
+    } else {
+        // jika belum tamat
+        return false; //tidak, belum tamat
+    }
 }
 
 # FUNCTION 3 semak level pengguna dan tahap kebenaran akses
 function semak_tahap($akses)
 {
-  $tahap = $_SESSION['tahap'];
-  $error = "";
+    $tahap = $_SESSION['tahap'];
+    $error = "";
 
-  if ($tahap == 'pelawat') {
-    $error = 'Anda perlu log masuk untuk akses halaman ini.';
-  } elseif ($tahap == 'pengguna'  &&  $akses == 'admin') {
-    $error = 'Hanya akaun Admin boleh mengakses halaman ini.';
-  } elseif ($tahap == 'admin'  &&  $akses == 'pengguna') {
-    $error = 'Hanya akaun Pengguna biasa boleh mengakses halaman ini.';
-  }
+    if ($tahap == 'pelawat') {
+        $error = 'You must be logged in to access this page.';
+    } elseif ($tahap == 'pengguna'  &&  $akses == 'admin') {
+        $error = 'Only Admin accounts can access this page.';
+    } elseif ($tahap == 'admin'  &&  $akses == 'pengguna') {
+        $error = 'Only regular User accounts can access this page.';
+    }
 
-  if (!empty($error)) {
-    exit("<script> alert('$error'); window.location.replace('index.php'); </script>");
-  }
+    if (!empty($error)) {
+        exit("<script> alert('$error'); window.location.replace('index.php'); </script>");
+    }
 }
 
 // JANGAN EDIT Kod di bawah. Function ini untuk paparkan ralat MySQLi
 function query($db, $sql = '')
 {
-  mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-  try {
-    $result = mysqli_query($db, $sql);
-  } catch (Exception $e) {
-    $er = $e->getTrace()[1];
-    $text = $e->getMessage();
-    $file = $er['file'];
-    $line = $er['line'];
-    $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    $debugger = "https://sk.jomgeek.com/debugger?msg=" . base64_encode($text);
-    $msg = "<div class='alert alert-danger w-100 shadow'>
-     <p class='alert-heading h5'><i class='bi bi-bug'></i> Ralat Dikesan <a class='btn btn-danger' href='$debugger' target='_blank'><span class='spinner-grow spinner-grow-sm'></span> Semak</a></p> 
-     <hr><b>Ralat:</b> <mark>$text</mark><br><br>
-      <b>SQL:</b> $sql<br><br>Query dijalankan di baris $line <br>Kod: $file<br>URL: $url</div>";
-    exit($msg);
-  }
-  return $result;
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    try {
+        $result = mysqli_query($db, $sql);
+    } catch (Exception $e) {
+        $er = $e->getTrace()[1];
+        $text = $e->getMessage();
+        $file = $er['file'];
+        $line = $er['line'];
+        $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $debugger = "https://sk.jomgeek.com/debugger?msg=" . base64_encode($text);
+        $msg = "<div class='alert alert-danger w-100 shadow'>
+     <p class='alert-heading h5'><i class='bi bi-bug'></i> Error Detected <a class='btn btn-danger' href='$debugger' target='_blank'><span class='spinner-grow spinner-grow-sm'></span> Check</a></p> 
+     <hr><b>Error:</b> <mark>$text</mark><br><br>
+      <b>SQL:</b> $sql<br><br>The query is executed on the row. $line <br>Kod: $file<br>URL: $url</div>";
+        exit($msg);
+    }
+    return $result;
 }
 
 // session simpan saiz font
 if (!isset($_SESSION['saizfont'])) {
-  $_SESSION['saizfont'] = 100;
+    $_SESSION['saizfont'] = 100;
 }
 $saizfont = $_SESSION['saizfont'];
 
 // session simpan jenis font
 if (!isset($_SESSION['jenisfont'])) {
-  $_SESSION['jenisfont'] = 'Arial';
+    $_SESSION['jenisfont'] = 'Arial';
 }
 $jenisfont = $_SESSION['jenisfont'];
 
 // session simpan jenis efek cursor
 if (!isset($_SESSION['cursor'])) {
-  $_SESSION['cursor'] = "";
+    $_SESSION['cursor'] = "";
 }
 $cursor = $_SESSION['cursor'];

@@ -1,4 +1,5 @@
 <?php
+define("ACCESS", true);
 include_once('inc_setup.php');
 include('inc_header.php');
 semak_tahap('pengguna-admin');
@@ -6,7 +7,7 @@ semak_tahap('pengguna-admin');
 if (isset($_GET['id'])) {
     $idundian = $_GET['id'];
 } else {
-    exit("<script>alert('ID undian diperlukan.'); window.location.replace('senarai_undian.php'); </script>");
+    exit("<script>alert('Voting ID is required.'); window.location.replace('senarai_undian.php'); </script>");
 }
 $idpengguna = $_SESSION['idpengguna'];
 $tahap = $_SESSION['tahap'];
@@ -21,15 +22,15 @@ if (mysqli_num_rows($result) > 0) {
     $imej = $data['imej'];
 
     if (semak_undi($idundian, $idpengguna) && $tahap != 'admin') {
-        echo "<script> alert('Respon anda ada dalam rekod. Anda telah mengundi.');
+        echo "<script> alert('Your response has been recorded. You have voted.');
         window.location.replace('keputusan.php?id=$idundian'); </script>";
     }
     if (semak_tamat($data['masa_tamat']) && $tahap != 'admin') {
-        exit("<script>alert('Undian ini telah ditutup.');
+        exit("<script>alert('This vote has closed.');
         window.location.replace('senarai_undian.php'); </script>");
     }
 } else {
-    exit("<script>alert('Undian $idundian tidak wujud.');
+    exit("<script>alert('Vote $idundian does not exist.');
     window.location.replace('index.php');</script>");
 }
 ?>
@@ -67,9 +68,9 @@ if (mysqli_num_rows($result) > 0) {
                 </div>";
                         }
                     }
-                    echo "<button class='btn btn-sm btn-success mt-4' type='submit' value='Hantar'> Hantar Undian</button>";
+                    echo "<button class='btn btn-sm btn-success mt-4' type='submit' value='Submit'> Submit Vote</button>";
                 } else {
-                    echo "Belum ada soalan.";
+                    echo "There are no questions yet.";
                 }
                 ?>
             </form>

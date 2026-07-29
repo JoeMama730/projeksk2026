@@ -1,10 +1,11 @@
-<?php include('inc_header.php');
+<?php
+define("ACCESS", true);include('inc_header.php');
 include_once('inc_setup.php');
 semak_tahap('admin');
 
 if (isset($_FILES["import"])) {
     if (!file_exists($_FILES['import']['tmp_name'])) {
-        echo "<script> alert('Sila pilih fail.'); window.location.replace('urus_import.php'); </script>";
+        echo "<script> alert('Please select a file.'); window.location.replace('urus_import.php'); </script>";
     }
     $file = fopen($_FILES["import"]["tmp_name"], 'rb');
     while (($line = fgetcsv($file, 100, ",")) !== FALSE) {
@@ -18,17 +19,17 @@ if (isset($_FILES["import"])) {
         }
     }
     fclose($file);
-    echo "<script>alert('Proses import selesai.');
+    echo "<script>alert('Import process completed.');
     window.location.replace('admin_pengguna_senarai.php'); </script>";
 } ?>
-<h2>Import Data Pengguna</h2>
+<h2>Import User Data</h2>
 <form method="POST" action="" enctype="multipart/form-data">
     <p>
-        <label for='import'>Pilih fail untuk di import (Format TXT atau CSV sahaja)</label><br>
+        <label for='import'>Select file to import (TXT or CSV format only)</label><br>
         <input class="form-control mt-4 mb-4" type="file" name='import' accept='.csv, .txt' required>
     </p>
     <p><button class="btn btn-success" type="submit" value="submit">Import Data</button>
     </p>
 </form>
-<p>Data import mesti mengikut susunan :<br> idpengguna, katalaluan, nama, tahap</p>
+<p>Imported data must follow this order :<br> idpengguna, katalaluan, nama, tahap</p>
 <?php include('inc_footer.php'); ?>

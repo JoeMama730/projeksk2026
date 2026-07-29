@@ -1,4 +1,6 @@
-<?php include_once('inc_setup.php');
+<?php
+define("ACCESS", true);
+include_once('inc_setup.php');
 semak_tahap('pengguna');
 
 if (isset($_POST['undian']) && isset($_POST['respon'])) {
@@ -10,9 +12,9 @@ if (isset($_POST['undian']) && isset($_POST['respon'])) {
             $result = query($db, $sql);
         }
     }
-    echo "<script> alert('Terima Kasih kerana mengundi.');
+    echo "<script> alert('Thank you for voting.');
     window.location.replace('keputusan.php?id=$idundian');</script>";
 } else {
-    echo "<script> alert ('Tiada POST data yang diperlukan.');
+    echo "<script> alert ('No POST data needed.');
     window.location.replace('index.php'); </script>";
 }

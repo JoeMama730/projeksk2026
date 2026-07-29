@@ -1,4 +1,5 @@
 <?php
+define("ACCESS", true);
 include_once('inc_setup.php');
 include('inc_header.php');
 
@@ -19,25 +20,25 @@ if (isset($_POST['idpengguna']) && isset($_POST['katalaluan'])) {
         $_SESSION['nama'] = $row['nama'];
         $_SESSION['tahap'] = $row['tahap'];
 
-        exit("<script>alert('Log Masuk berjaya.'); window.location.replace('index.php');</script>");
+        exit("<script>alert('Login successful.'); window.location.replace('index.php');</script>");
     } else {
-        echo "<script>alert('Log Masuk gagal:($idpengguna)');</script>";
+        echo "<script>alert('Login failed: ($idpengguna)');</script>";
     }
 }
 ?>
-<h2>Log Masuk</h2>
+<h2 style="font-size: 2em; margin-left: 20px;"><b>Log In</b></h2>
 <form method="POST" action="login.php" class="w-50 m-auto">
-    <div class="mb-3"><label class="form-label">ID Pengguna</label>
+    <div class="mb-3"><label class="form-label"><b>User ID</b></label>
         <input type="text" class="form-control" name="idpengguna"
-            placeholder="Masukkan ID Pengguna" value="<?= $idpengguna ?>" required>
+            placeholder="Enter User ID" value="<?= $idpengguna ?>" required>
     </div>
     <div class="mb-3">
-        <label class="form-label">Katalaluan</label>
-        <input type="password" class="form-control" name="katalaluan" placeholder="Masukkan Katalaluan" required>
+        <label class="form-label"><b>Password</b></label>
+        <input type="password" class="form-control" name="katalaluan" placeholder="Enter Password" required>
     </div>
 
     <div class="d-grid gap-2">
-        <button class="btn btn-primary d-block" type="submit">Log Masuk</button>
+        <button class="btn btn-primary d-block" type="submit"><b>Log In</b></button>
     </div>
 </form>
 <?php include('inc_footer.php'); ?>

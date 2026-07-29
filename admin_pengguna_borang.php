@@ -1,4 +1,6 @@
-<?php include('inc_header.php');
+<?php
+define("ACCESS", true);
+include('inc_header.php');
 include_once('inc_setup.php');
 semak_tahap('admin');
 $idpengguna = $katalaluan = $nama = $tahap = "";
@@ -15,7 +17,7 @@ if (isset($_GET['idpengguna'])) {
         $nama = $edit_data['nama'];
         $tahap = $edit_data['tahap'];
     } else {
-        echo "<script>alert('ID tidak ditemui.');</script>";
+        echo "<script>alert('ID not found.');</script>";
     }
 }
 if (isset($_POST['idpengguna'])) {
@@ -31,27 +33,27 @@ if (isset($_POST['idpengguna'])) {
         VALUES ('$idpengguna', '$katalaluan', '$nama', '$tahap')";
     }
     $result = query($db, $sql);
-    echo "<script>alert('Berjaya disimpan.');
+    echo "<script>alert('Successfully saved.');
     window.location.replace('admin_pengguna_senarai.php');</script>";
 } ?>
 <form method="POST" action="">
     <input type="hidden" name="idedit" value="<?= $idpengguna ?>">
-    <p><label>ID Pengguna</label><br>
+    <p><label>User ID</label><br>
         <input type='text' name='idpengguna' value='<?php echo $idpengguna; ?>' required>
     </p>
-    <p><label>Katalaluan</label><br>
+    <p><label>Password</label><br>
         <input type='password' name='katalaluan' value='<?php echo $katalaluan; ?>' required>
     </p>
     <p>
-        <lable>Nama</label><br>
+        <lable>Name</label><br>
             <input type='text' name='nama' value='<?php echo $nama; ?>' required>
     </p>
-    <p><label>Tahap</label><br>
+    <p><label>Level</label><br>
         <select name='tahap>
-    <option <?= $tahap == 'pengguna' ? 'selected' : "?> value='pengguna'>Pengguna</option>
+    <option <?= $tahap == 'user' ? 'selected' : "?> value='pengguna'>User</option>
     <option <?=$tahap=='admin'?'selected':" ?> value=' admin'>Admin</option>
         </select>
     </p>
-    <p> <button class="btn btn-success btn-sm" type="submit">Simpan</button></p>
+    <p> <button class="btn btn-success btn-sm" type="submit">Save</button></p>
 </form>
 <?php include('inc_footer.php'); ?>

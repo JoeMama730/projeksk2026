@@ -1,8 +1,10 @@
-<?php include_once('inc_setup.php');
+<?php
+define("ACCESS", true);
+include_once('inc_setup.php');
 include('inc_header.php');
 $idpengguna = isset($_SESSION['idpengguna']) ? $_SESSION['idpengguna'] : false;
 ?>
-<h2>Senarai Undian</h2>
+<h2 style="font-size: 2em; margin-left: 20px;"><b>List of Votes</b></h2>
 <?php
 $sql = "SELECT * FROM undian";
 $result = query($db, $sql);
@@ -10,8 +12,8 @@ $total = mysqli_num_rows($result);
 
 if ($total > 0) {
     echo "<table class='table table-bordered table-striped'border='1'cellpadding='4'cellspacing='0'>
-    <tr> <th width='200'>Imej</td><th>Undian</td>
-    <th class='text-end'>Tindakan</td></tr>";
+    <tr> <th width='200'>Image</td><th>Voting</td> 
+    <th class='text-end'>Action</td></tr>";
 
     while ($row = mysqli_fetch_array($result)) {
         $idundian = $row['idundian'];
@@ -19,9 +21,9 @@ if ($total > 0) {
         $masa_tamat = date("j M Y, g:i A", strtotime($row['masa_tamat']));
 
         if (semak_tamat($row['masa_tamat'])) {
-            $label_masa = "Undian telah tamat: <span style='color: red'>$masa_tamat</span>";
+            $label_masa = "Voting has ended: <span style='color: red'>$masa_tamat</span>";
         } else {
-            $label_masa = "Tarikh tamat undian: <span style='color: green'>$masa_tamat</span>";
+            $label_masa = "Vote Closes On: <span style='color: green'>$masa_tamat</span>";
         }
         $imej = $row['imej'];
         if (!empty($imej)) {
@@ -34,7 +36,7 @@ if ($total > 0) {
             $undi_db = semak_undi($idundian, $idpengguna);
 
             if ($undi_db) {
-                $respon_undi = "<br><b>Undian anda:</b><br>";
+                $respon_undi = "<br><b>Your Vote:</b><br>";
                 foreach ($undi_db as $key => $value) {
                     $respon_undi .= $value['label_soalan'] . ":" . $value['label_jawapan'] . "<br>";
                 }
@@ -45,14 +47,14 @@ if ($total > 0) {
         $label_masa <br>$respon_undi
         </td>
         <td align='right'>
-        <a class='btn btn-info btn-sm mb-2' href='undian.php?id=$idundian'>Undi</a>
-        <a class='btn btn-info btn-sm mb-2' href='undian.php?id=$idundian'>Keputusan</a>
+        <a class='btn btn-info btn-sm mb-2' href='undian.php?id=$idundian'>Vote</a>
+        <a class='btn btn-info btn-sm mb-2' href='undian.php?id=$idundian'>Results</a>
         </td>
         </tr>
         ";
     }
     echo "</table>";
 } else {
-    echo "Belum ada undian.";
+    echo "<p style=\"margin-left: 20px;\">No votes yet.</p>";
 }
 include('inc_footer.php'); ?>

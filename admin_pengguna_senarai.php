@@ -1,4 +1,5 @@
 <?php
+define("ACCESS", true);
 include('inc_header.php');
 include_once('inc_setup.php');
 semak_tahap('admin');
@@ -8,7 +9,7 @@ if (isset($_GET['delete'])) {
     $sql = "DELETE FROM pengguna WHERE idpengguna='$idpengguna'";
     $result = query($db, $sql);
 
-    echo "<script> alert('Akaun pengguna berjaya dibuang.');
+    echo "<script> alert('The user account has been successfully deleted.');
      window.location.replace('admin_pengguna_senarai.php');</script>";
     exit();
 }
@@ -22,24 +23,24 @@ if (isset($_POST['search'])) {
 }
 ?>
 
-<h2>Urus Pengguna</h2>
+<h2 style="font-size: 2em; margin-left: 20px;"><b>Manage Users</b></h2>
 
-<form method="POST" action="">
+<form method="POST" action="" style="margin-left: 20px;">
     <div class="row">
         <div class="col">
-            <div class="input-group">
-                <input class="from-control" type='text' name='keyword' value='<?php echo $keyword; ?>' placeholder='ID atau Nama Pengguna'>
-                <button class="btn btn-success" type='submit' name='search'>Cari</button>
+            <div class="d-flex gap-2">
+                <input class="form-control" type='text' name='keyword' value='<?php echo $keyword; ?>' placeholder='User ID or Name' style="min-width:210px">
+                <button class="btn btn-success" type='submit' name='search'>Search</button>
                 <button class="btn btn-warning" type='submit' name='reset'>Reset</button>
             </div>
         </div>
 
-        <div class="col text-end">
+        <div class="col text-end gap-2" style="margin-right: 20px;">
             <a class='btn btn-sm btn-primary'
-                href="admin_pengguna_borang.php">Tambah Pengguna</a>
+                href="admin_pengguna_borang.php">Add User</a>
             <a class='btn btn-sm btn-primary'
-                href='admin_pengguna_import.php'>Import Pengguna</a>
-            <button class="btn btn-sm btn-primary" onclick='window.print()'>Cetak</button>
+                href='admin_pengguna_import.php'>Import Users</a>
+            <button class="btn btn-sm btn-primary" onclick='window.print()'>Print</button>
         </div>
     </div>
 </form>
@@ -50,15 +51,15 @@ $sql = "SELECT * FROM pengguna $q GROUP BY idpengguna";
 $result = query($db, $sql);
 $total = mysqli_num_rows($result);
 if ($total > 0) {
-    echo "Jumlah: $total<br>";
+    echo "<p style=\"margin-left:20px\">Total: $total</p>";
 ?>
-    <table class='table table-striped table-sm' border='1' cellpadding='4' cellspacing='0'>
+    <table class='table table-striped table-sm' cellpadding='4' cellspacing='0' style="margin-left: 20px; max-width: 95%; border:1px; border-color: #ddd;">
         <tr>
-            <th>Bil.</th>
-            <th>ID Pengguna</th>
-            <th>Nama</th>
-            <th>Tahap</th>
-            <th class='text-end'>Tindakan</th>
+            <th>No.</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th class='text-end'>Actions</th>
         </tr>
         <?php
         $counter = 0;
@@ -76,14 +77,14 @@ if ($total > 0) {
       <a class='btn btn-sm btn-info'
       href='admin_pengguna_borang.php?idpengguna=$idpengguna'>Edit</a>
       <a class='btn btn-sm btn-danger'
-      onclick='deletethis(\"$idpengguna\")' >Buang</a>
+      onclick='deletethis(\"$idpengguna\")' >Delete</a>
     </td> </tr>";
         }
         ?>
     </table>
 <?php
 } else {
-    echo "Belum ada rekod pengguna.";
+    echo "<p style=\"margin-left:20px;\">No user records found.</p>";
 }
 
 include('inc_footer.php');

@@ -1,4 +1,5 @@
 <?php
+define("ACCESS", true);
 include('inc_header.php');
 include_once('inc_setup.php');
 semak_tahap('admin');
@@ -6,7 +7,7 @@ semak_tahap('admin');
 if (isset($_GET['id'])) {
     $idundian = $_GET['id'];
 } else {
-    exit("<script>alert('ID diperlukan.');
+    exit("<script>alert('ID is required.');
     window.location.replace('admin_undian_senarai.php'); </script>");
 }
 
@@ -15,7 +16,7 @@ if (isset($_GET['delete'])) {
     $sql = "DELETE FROM soalan WHERE idsoalan ='$idsoalan'";
     $result = query($db, $sql);
 
-    exit("<script> alert('Soalan berjaya dibuang.');
+    exit("<script> alert('The question was successfully removed.');
     window.location.replace('admin_undian_soalan.php?id=$idundian'); </script>");
 }
 
@@ -26,7 +27,7 @@ if (mysqli_num_rows($result) > 0) {
     $data = mysqli_fetch_array($result);
     $label_undian = $data['label_undian'];
 } else {
-    echo "<script>alert('ID ($idundian) tidak wujud.');
+    echo "<script>alert('ID ($idundian) does not exist.');
     window.location.replace('admin_undian_soalan.php'); </script>";
 }
 
@@ -45,37 +46,37 @@ if (isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['
             $result = query($db, $sql);
         }
     }
-    echo "<script> alert('Berjaya disimpan.');
+    echo "<script> alert('Question saved successfully.');
     window.location.replace('admin_undian_soalan.php?id=$idundian'); </script>";
 }
 ?>
 
-<h2>Soalan Undian <?= $idundian ?> : <?= $label_undian ?></h2>
+<h2>Vote Question <?= $idundian ?> : <?= $label_undian ?></h2>
 
 <form method="POST" action="">
     <p>
-        <label>ID Soalan</label><br>
-        <input style="width: 100px" type='text' name='idsoalan' value='' placeholder='ID Soalan' required>
-        <input type='text' name='label_soalan' placeholder='Label soalan'>
+        <label>ID Question</label><br>
+        <input style="width: 100px" type='text' name='idsoalan' value='' placeholder='Question ID' required>
+        <input type='text' name='label_soalan' placeholder='Question Label'>
     </p>
 
-    <label>Pilihan Jawapan:</label><br>
+    <label>Answer Options:</label><br>
     <p>
-        <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
-        <input type='text' name='label_jawapan[]' placeholder='Label Jawapan' required>
+        <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='Answer ID' required>
+        <input type='text' name='label_jawapan[]' placeholder='Answer Label' required>
     </p>
 
     <p id="input-jawapan">
-        <input style="width: 100px" type='text' name='idjawapan[]' placeholder='ID Jawapan' required>
-        <input type='text' name='label_jawapan[]' placeholder='Label Jawapan' required>
+        <input style="width: 100px" type='text' name='idjawapan[]' placeholder='Answer ID' required>
+        <input type='text' name='label_jawapan[]' placeholder='Answer Label' required>
     </p>
 
     <p>
         <a href='javascript:void(0);' onclick="tambah_jawapan()">+ Pilihan</a>
     </p>
 
-    <button class="btn btn-sm btn-success" type="submit" value="Simpan">
-        Simpan Soalan</button>
+    <button class="btn btn-sm btn-success" type="submit" value="Save">
+        Save Question</button>
 </form>
 <hr>
 
@@ -90,9 +91,9 @@ if ($total > 0) {
     echo "Jumlah: $total<br>";
     echo "<table class='table table-bordered table-striped' border='1' cellpadding='4' cellspacing='0'>
     <tr>
-    <th>Label Soalan</th>
-    <th>Pilihan Jawapan</th>
-    <th>Tindakan</th>
+    <th>Question Label</th>
+    <th>Answer Options</th>
+    <th>Action</th>
     </tr>";
 
     while ($row = mysqli_fetch_array($result)) {
@@ -110,12 +111,12 @@ if ($total > 0) {
         <td>$idsoalan : $label_soalan</td>
         <td>$label_jawapan</td>
         <td><a class='btn btn-sm btn-danger'href='javascript:void(0);'
-        onclick='deletethis(\"$idsoalan\")> Buang </a></td>
+        onclick='deletethis(\"$idsoalan\")> Remove </a></td>
         </tr>";
     }
     echo "</table>";
 } else {
-    echo "Belum ada soalan.";
+    echo "There are no questions yet.";
 }
 
 include('inc_footer.php'); ?>
