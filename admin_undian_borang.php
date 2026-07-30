@@ -28,8 +28,8 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
     $idundian = $_POST['idundian'];
-    $idedit = $_POST['idesit'];
-    $label_undian = $$_POST['label_undian'];
+    $idedit = $_POST['idedit'];
+    $label_undian = $_POST['label_undian'];
     $detail = $_POST['detail'];
 
     $masa_tamat = date("Y-m-d H:i:s", strtotime($_POST['masa_tamat']));
@@ -46,15 +46,17 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
                 $imej = $newname;
             }
         }
+
     }
     if ($edit_data) {
-        $sql = "UPDATE IGNORE undian SET idundian='$idundian',label_undian='$label_undian',detail= '$detail',masa_tamat='$masa_tamat',imej='$imej'WHERE idundian='$idedit'";
+        $sql = "UPDATE IGNORE undian SET idundian='$idundian',label_undian='$label_undian',detail= '$detail',masa_tamat='$masa_tamat',imej='$imej' WHERE idundian='$idedit'";
     } else {
         $sql = "INSERT IGNORE INTO undian (idundian, label_undian, detail, masa_tamat, imej) VALUES('$idundian','$label_undian','$detail','$masa_tamat','$imej')";
     }
     $result = query($db, $sql);
-    echo "<script> alert('Successfully saved.');
-    window.location.replace('admin_undian_senarai.php.');</script>";
+
+    echo "<script>alert('Successfully saved.');
+    window.location.replace('admin_undian_senarai.php');</script>";
 }
 ?>
 
@@ -69,13 +71,12 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
         </p>
         <p> <label>Label Vote</label><br>
             <input type='text' name='label_undian' value='<?= $label_undian; ?>'
-                placeholder='Vote title' required>
+                placeholder='Vote Title' required>
         </p>
 
         <div class="mb-2"> <label class="form-label">Detailed Information</label><br>
             <code>Can use HTML or embed code.</code>
-            <textarea class="form-control" type='text' name='detail' rows="8" cols="30">
-    <?= htmlspecialchars($detail) ?></textarea>
+            <textarea class="form-control" type='text' name='detail' rows="8" cols="30"><?= htmlspecialchars($detail) ?></textarea>
         </div>
     </div>
 

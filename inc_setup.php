@@ -1,4 +1,8 @@
 <?php
+if (!defined("ACCESS")) {
+    header("Location: error.php?u=1");
+}
+
 # Nama sistem dipaparkan di header dan title bar browser
 $nama_sistem = "Fender Institution eVoting";
 

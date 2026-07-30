@@ -34,7 +34,7 @@ if (isset($_POST['search'])) {
         <div class="col">
             <div class="d-flex gap-2">
                 <input class="form-control" type='text' name='keyword'
-                    value='<?php echo $keyword; ?>' placeholder='Kata kunci' style="min-width:150px">
+                    value='<?php echo $keyword; ?>' placeholder='Keyword' style="min-width:150px">
                 <select class="form-select" name="status" style="min-width: 100px;">
                     <option value="" selected>Status</option>
                     <option value="active">Active</option>
@@ -68,18 +68,18 @@ if ($total > 0) {
         $masa_tamat = date("j M Y, g:i A", strtotime($row['masa_tamat']));
 
         if (semak_tamat($row['masa_tamat'])) {
-            $label_masa = "Vote has ended:<span style='color:red'>$masa_tamat</span>";
+            $label_masa = "Vote has ended: <span style='color:red'>$masa_tamat</span>";
         } else {
-            $label_masa = "Vote Closes On:<span style='color:green'>$masa_tamat</span>";
+            $label_masa = "Vote closes on: <span style='color:green'>$masa_tamat</span>";
         }
         $imej = $row['imej'];
         if (!empty($imej)) {
-            $img = "<img src='$image_folder/$imej'class='border rounded'alt='Gambar Undian'width='100%'>";
+            $img = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
         } else {
             $img = "";
         }
         echo "<tr>
-        <td>$img</td><td><b>$idundian:$label_undian</b><br>$label_masa<br>
+        <td>$img</td><td><b>$idundian: $label_undian</b><br>$label_masa<br>
         <a href='admin_undian_borang.php?id=$idundian'>Edit Information </a>|
         <a href='admin_undian_soalan.php?id=$idundian'>Manage Questions </a>|
         <a href='javascript:void(0);'onclick='deletethis(\"$idundian\")'>Remove</a>
