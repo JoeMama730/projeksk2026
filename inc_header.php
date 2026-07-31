@@ -33,12 +33,9 @@ if (!defined("ACCESS")) {
             background-color: rgba(255, 255, 255, 0.75) !important;
             max-width: 65%;
             height: 95vh;
-            display: flex;
-            overflow: hidden;
+            max-height: 90%;
+            overflow-y: auto;
             box-shadow: 0 1px 6px #222;
-            margin: auto;
-
-            min-height: 0;
         }
 
         body {
@@ -55,7 +52,7 @@ if (!defined("ACCESS")) {
             padding: 0px;
             flex-direction: column;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -118,7 +115,7 @@ if (!defined("ACCESS")) {
             <img src="images/kii.png" height="100" class="d-flex mb-2 me-lg-4 me-md-0 align-items-center text-decoration-none">
             <div class="d-flex flex-column align-items-center">
                 <div class="mt-2 text-center">
-                    <h3 style="font-weight: 1000;"><?= $nama_sistem ?></h3>
+                    <h3 style="font-weight: 800;"><?= $nama_sistem ?></h3>
                 </div>
                 <ul class="nav nav-pills ms-2 me-2 m-auto gap-1">
                     <li class="nav-item"><a href="index.php" class="btn-header btn me-2">Home</a></li>

@@ -17,7 +17,6 @@ if (isset($tahap) && $tahap == 'pelawat') {
 <?php
 }
 ?>
-<br /><br />
 <img class="header-img" src="images/waguri_smile.png" alt="Waguri Smile">
 <?php
 include("inc_footer.php");
