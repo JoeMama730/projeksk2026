@@ -23,18 +23,22 @@ if (!defined("ACCESS")) {
 
     <style>
         * {
-            font-family: <?= $jenisfont ?>, sans-serif;
+            font-family: <?= $jenisfont ?>;
             font-size: <?= $saizfont ?>%;
         }
 
         .wrapper {
-            border-radius: 24px;
+            border-radius: 18px;
             /* Warna latar box sistem */
             background-color: rgba(255, 255, 255, 0.75) !important;
-            max-width: 60%;
+            max-width: 65%;
+            height: 95vh;
+            display: flex;
             overflow: hidden;
             box-shadow: 0 1px 6px #222;
             margin: auto;
+
+            min-height: 0;
         }
 
         body {
@@ -45,10 +49,14 @@ if (!defined("ACCESS")) {
 
             z-index: 1;
 
+            min-height: 100vh;
+
             margin: 0px;
             padding: 0px;
             flex-direction: column;
+            display: flex;
             align-items: flex-start;
+            justify-content: center;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -105,12 +113,12 @@ if (!defined("ACCESS")) {
 </head>
 
 <body>
-    <div class="container wrapper min-vh-100 d-flex flex-column">
+    <div class="container wrapper d-flex flex-column">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <img src="images/kii.png" height="100" class="d-flex mb-2 me-lg-4 me-md-0 align-items-center text-decoration-none">
             <div class="d-flex flex-column align-items-center">
                 <div class="mt-2 text-center">
-                    <h3><strong> <?= $nama_sistem ?> </strong></h3>
+                    <h3 style="font-weight: 1000;"><?= $nama_sistem ?></h3>
                 </div>
                 <ul class="nav nav-pills ms-2 me-2 m-auto gap-1">
                     <li class="nav-item"><a href="index.php" class="btn-header btn me-2">Home</a></li>

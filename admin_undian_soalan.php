@@ -62,7 +62,7 @@ if (isset($_POST['idsoalan']) && isset($_POST['label_soalan']) && isset($_POST['
 
     <label>Answer Options:</label><br>
     <p>
-        <input stype="width: 100px" type='text' name='idjawapan[]' placeholder='Answer ID' required>
+        <input style="width: 100px" type='text' name='idjawapan[]' placeholder='Answer ID' required>
         <input type='text' name='label_jawapan[]' placeholder='Answer Label' required>
     </p>
 

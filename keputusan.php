@@ -30,6 +30,7 @@ if (mysqli_num_rows($result) > 0) {
     $label_undian = $data['label_undian'];
     $jumlah_respon = $data['jumlah_respon'];
     $masa_tamat = date("j M Y, g:i A", strtotime($data['masa_tamat']));
+    $detail = $data['detail'];
 } else {
     exit("<script>alert('Voting $idundian does not exist.');
     window.location.replace('index.php'); </script>");
@@ -49,6 +50,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class='card-body mx-1'>
             <h2> <?= $label_undian ?></h2>
             <?php
+            echo $detail;
             $sql = "SELECT * FROM soalan WHERE idundian='$idundian' ORDER BY idsoalan ASC";
             $result2 = query($db, $sql);
 

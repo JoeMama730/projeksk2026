@@ -33,8 +33,8 @@ if (isset($_POST['search'])) {
     <div class="row">
         <div class="col">
             <div class="d-flex gap-2">
-                <input class="form-control" type='text' name='keyword'
-                    value='<?php echo $keyword; ?>' placeholder='Keyword' style="min-width:150px">
+                <input class="form-control" type='text' name='keyword' value='<?php echo $keyword; ?>'
+                    placeholder='Keyword' style="min-width:150px">
                 <select class="form-select" name="status" style="min-width: 100px;">
                     <option value="" selected>Status</option>
                     <option value="active">Active</option>
@@ -59,39 +59,52 @@ $result = query($db, $sql);
 $total = mysqli_num_rows($result);
 
 if ($total > 0) {
-    echo "Total: $total<br>";
-    echo "<table class='table table-bordered table-striped'border='1'cellpadding='4'cellspacing='0'>
-    <tr><th width='200'>Image</td><th>Vote</td><th class='text-end'>Action</td></tr>";
-    while ($row = mysqli_fetch_array($result)) {
-        $idundian = $row['idundian'];
-        $label_undian = $row['label_undian'];
-        $masa_tamat = date("j M Y, g:i A", strtotime($row['masa_tamat']));
+?>
+    <p style="margin-left:20px"><b>Total:</b> <?= $total ?></p>
+    <table class='table table-bordered table-striped' border='1' cellpadding='4' cellspacing='0'>
+        <tr>
+            <th width='200'>Image</td>
+            <th>Vote</td>
+            <th class='text-end'>Action</td>
+        </tr>
+        <?php
+        while ($row = mysqli_fetch_array($result)) {
+            $idundian = $row['idundian'];
+            $label_undian = $row['label_undian'];
+            $masa_tamat = date("j M Y, g:i A", strtotime($row['masa_tamat']));
 
-        if (semak_tamat($row['masa_tamat'])) {
-            $label_masa = "Vote has ended: <span style='color:red'>$masa_tamat</span>";
-        } else {
-            $label_masa = "Vote closes on: <span style='color:green'>$masa_tamat</span>";
+            if (semak_tamat($row['masa_tamat'])) {
+                $label_masa = "Vote has ended: <span style='color:red'>$masa_tamat</span>";
+            } else {
+                $label_masa = "Vote closes on: <span style='color:green'>$masa_tamat</span>";
+            }
+            $imej = $row['imej'];
+            if (!empty($imej)) {
+                $img = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
+            } else {
+                $img = "";
+            }
+        ?>
+            <tr>
+                <td><?= $img ?></td>
+                <td><b><?= $idundian ?>: <?= $label_undian ?></b><br><?= $label_masa ?><br>
+                    <a href='admin_undian_borang.php?id=<?= $idundian ?>'>Edit Information</a> |
+                    <a href='admin_undian_soalan.php?id=<?= $idundian ?>'>Manage Questions</a> |
+                    <a href='javascript:void(0);' onclick='deletethis("<?= $idundian ?>")'>Remove</a>
+                </td>
+                <td align='right'>
+                    <a class='btn btn-info btn-sm mb-2' href='keputusan.php?id=<?= $idundian ?>'>Results</a>
+                </td>
+            </tr>
+        <?php
         }
-        $imej = $row['imej'];
-        if (!empty($imej)) {
-            $img = "<img src='$image_folder/$imej' class='border rounded' alt='Gambar Undian' width='100%'>";
-        } else {
-            $img = "";
-        }
-        echo "<tr>
-        <td>$img</td><td><b>$idundian: $label_undian</b><br>$label_masa<br>
-        <a href='admin_undian_borang.php?id=$idundian'>Edit Information </a>|
-        <a href='admin_undian_soalan.php?id=$idundian'>Manage Questions </a>|
-        <a href='javascript:void(0);'onclick='deletethis(\"$idundian\")'>Remove</a>
-        </td>
-        <td align='right'>
-        <a class='btn btn-info btn-sm mb-2'href='undian.php?id=$idundian'>Results</a>
-        </td>
-        </tr>";
-    }
-    echo "</table>";
+        ?>
+    </table>
+<?php
 } else {
-    echo "<p style=\"margin-left: 20px;\">No votes yet.</p>";
+?>
+    <p style="margin-left: 20px;">No votes yet.</p>
+<?php
 }
 include('inc_footer.php');
 ?>

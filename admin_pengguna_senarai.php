@@ -51,16 +51,18 @@ $sql = "SELECT * FROM pengguna $q GROUP BY idpengguna";
 $result = query($db, $sql);
 $total = mysqli_num_rows($result);
 if ($total > 0) {
-    echo "<p style=\"margin-left:20px\">Total: $total</p>";
 ?>
-    <table class='table table-striped table-sm' cellpadding='4' cellspacing='0' style="margin-left: 20px; max-width: 95%; border:1px; border-color: #ddd;">
-        <tr>
-            <th>No.</th>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Level</th>
-            <th class='text-end'>Actions</th>
-        </tr>
+    <p style="margin-left:20px"><b>Total:</b> <?= $total ?></p>
+    <table class='table table-sm table-striped table-borderless table-responsive' cellpadding='4' cellspacing='0' style="margin-left: 20px; max-width: 95%;">
+        <thead class="table-secondary">
+            <tr>
+                <th>#</th>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
         <?php
         $counter = 0;
         while ($row = mysqli_fetch_array($result)) {
@@ -68,17 +70,23 @@ if ($total > 0) {
             $idpengguna = $row['idpengguna'];
             $nama = $row['nama'];
             $tahap = $row['tahap'];
+        ?>
+            <tbody>
+                <tr>
+                    <td><?= $counter ?></td>
+                    <td><?= $idpengguna ?></td>
+                    <td><?= $nama ?></td>
+                    <td><?= $tahap ?></td>
 
-            echo "<tr> <td>$counter</td>
-     <td>$idpengguna</td> <td>$nama</td>
-    <td>$tahap</td>
-    
-     <td align='right'>
-      <a class='btn btn-sm btn-info'
-      href='admin_pengguna_borang.php?idpengguna=$idpengguna'>Edit</a>
-      <a class='btn btn-sm btn-danger'
-      onclick='deletethis(\"$idpengguna\")' >Delete</a>
-    </td> </tr>";
+                    <td align='right'>
+                        <a class='btn btn-sm btn-info'
+                            href='admin_pengguna_borang.php?idpengguna=<?= $idpengguna ?>'>Edit</a>
+                        <a class='btn btn-sm btn-danger'
+                            onclick='deletethis("<?= $idpengguna ?>")'>Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        <?php
         }
         ?>
     </table>

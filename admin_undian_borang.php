@@ -46,7 +46,6 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
                 $imej = $newname;
             }
         }
-
     }
     if ($edit_data) {
         $sql = "UPDATE IGNORE undian SET idundian='$idundian',label_undian='$label_undian',detail= '$detail',masa_tamat='$masa_tamat',imej='$imej' WHERE idundian='$idedit'";
@@ -60,8 +59,8 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
 }
 ?>
 
-<h2>Vote Information Form</h2>
-<form class="form-group row" method="POST" action="" enctype="multipart/form-data">
+<h2 style="font-size: 2em; margin-left: 20px;"><b>Vote Information Form</b></h2>
+<form class="form-group row" method="POST" action="" enctype="multipart/form-data" style="margin-left: 20px; margin-right:20px;">
     <input type="hidden" name="idedit" value="<?= $idundian ?>">
 
     <div class="col">
@@ -82,7 +81,7 @@ if (isset($_POST['label_undian']) && !empty($_POST['label_undian'])) {
 
     <div class="col">
         <p> <label>Vote Closes On</label><br>
-            <input type="datetime-local" step="any" name='masa_tamat' value='<?= $masa_tamat; ?>' required>
+            <input type="datetime-local" step="any" name='masa_tamat' value='<?= date('Y-m-d\TH:i') ?>' style="width: 10em;" required>
         </p>
         <p>
             <?php

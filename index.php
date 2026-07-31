@@ -12,10 +12,12 @@ include("inc_header.php");
 <br />
 <?php
 if (isset($tahap) && $tahap == 'pelawat') {
-    echo '<p class="text-center" style="font-size: 1.2em;">Please <a href="login.php" class="custom-link" style="text-decoration: none;"><b>Login</b></a> to vote.</p>';
+?>
+    <p class="text-center" style="font-size: 1.2em;">Please <a href="login.php" class="custom-link" style="text-decoration: none;"><b>Login</b></a> or <a href="signup.php" class="custom-link" style="text-decoration: none;"><b>Sign Up</b></a> to vote.</p>
+<?php
 }
 ?>
-<br/><br/>
+<br /><br />
 <img class="header-img" src="images/waguri_smile.png" alt="Waguri Smile">
 <?php
 include("inc_footer.php");

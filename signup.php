@@ -43,29 +43,42 @@ if (isset($_POST['idpengguna']) && isset($_POST['katalaluan'])) {
     }
 }
 ?>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="info-fill" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+</svg>
 <h2 style="font-size: 2em; margin-left: 20px;"><b>Sign Up Account</b></h2>
 <form method="POST" action="signup.php" class="w-50 m-auto">
-
     <div class="mb-3">
-        <label class="form-label mt-2"><b>User ID</b> (Username/Phone Number/IC Number)</label>
-        <input class="form-control" type="text" name="idpengguna"
-            data-bs-toggle="tooltip" data-bs-placement="center" title="User ID for login."
+        <label class="form-label mt-2"><b>User ID</b></label>
+        <input class="form-control" type="text" name="idpengguna" placeholder="Username/Phone Number/IC Number"
+            data-bs-toggle="tooltip" data-bs-placement="right" title="User ID for login."
             value='<?php echo $idpengguna; ?>' required>
     </div>
 
     <div class="mb-3">
         <label class="form-label mt-2"><b>Password</b></label>
-        <input class="form-control" type="password" name="katalaluan" required>
-</div>
+        <input class="form-control" type="password" name="katalaluan" data-bs-toggle="tooltip" data-bs-placement="right" title="Minimum of 6 characters." required>
+    </div>
 
-<div class=" mb-3">
+    <div class=" mb-3">
         <label class="form-label"><b>Name</b></label>
         <input class="form-control" type="text" name="nama"
             value='<?php echo $nama; ?>' required>
     </div>
 
-    <div class="d-grid gap-2">
+    <div class="d-grid gap-2 mb-3">
         <button class="btn btn-primary d-block" type="submit"><b>Sign Up</b></button>
+    </div>
+
+    <div class="alert alert-info d-flex align-items-center p-2 fs-6" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info:" style="width:1.25em;height:1.25em;fill:currentColor;">
+            <use xlink:href="#info-fill" />
+        </svg>
+        <div>
+            Click <a href="login.php" class="custom-link" style="text-decoration: none;"><b>here</b></a> to log in to an account if your account has already been registered.
+        </div>
     </div>
 </form>
 
